@@ -1,15 +1,35 @@
 package com.sungard.jopportal;
 
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.firefox.FirefoxDriver;
+
 import junit.framework.TestCase;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class JPJUnit extends TestCase {
-
+	FirefoxDriver driver ;
 	@Given("^email/user$")
 	public void email_user() throws Throwable {
 	    // Express the Regexp above with the code you wish you had
+		driver = new FirefoxDriver();
+		String baseUrl = "C:\\Users\\Narendra\\Downloads\\collegeportal\\collegeportal\\index.html";
+		driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
+		driver.get(baseUrl);
+		driver.findElementByName("userid").sendKeys("Dhoni");
+		driver.findElementByName("passid").sendKeys("Dhoni@2015");
+		driver.findElementByName("username").sendKeys("DhoniCWC2015");
+		driver.findElementByName("address").sendKeys("Chennai");
+		driver.findElementByName("city").sendKeys("Pune");
+		driver.findElementByName("email").sendKeys("dhoni.india@bcci.com");
+		driver.manage().timeouts().implicitlyWait(8000, TimeUnit.MILLISECONDS);
+		driver.findElementByName("submit").click();
+		driver.manage().timeouts().implicitlyWait(9000, TimeUnit.MILLISECONDS);
+		String successUrl = "C:\\Users\\Narendra\\Downloads\\collegeportal\\collegeportal\\success.html";
+		driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
+		driver.get(successUrl);
 	}
 
 	@When("^on submit of new profile$")
@@ -19,7 +39,7 @@ public class JPJUnit extends TestCase {
 
 	@Then("^search in db whether it already exists ,throw validation$")
 	public void search_in_db_whether_it_already_exists_throw_validation() throws Throwable {
-	    // Express the Regexp above with the code you wish you had
+//	    driver.findElementByName("result").sendKeys("User created successfully");
 	}
 
 	@Given("^mobile no to create a new profile$")
